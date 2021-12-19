@@ -1,0 +1,128 @@
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+#define MAX 50
+
+class Stack  
+{
+private:
+  char data[MAX],str[MAX];
+  int top,length,count;
+
+  void push(char);
+  char pop();
+
+public:
+  Stack() 
+  {
+    top=-1;
+    length=0;
+    count=0;
+  }
+  void getString();
+  void checkPalindrome();
+  void convertString();
+  void ReverseString();
+};
+
+void Stack::push(char temp) 
+{
+  if(top==MAX-1)  
+  {
+    cout<<"\n Stack Overflow!!!";
+    return;
+  }
+  top++;
+  data[top]=temp;
+}
+
+char Stack::pop() 
+{
+  if(top==-1)  
+  {
+    cout<<"\n Stack Underflow!!!";
+    char ch='\n';
+    return ch;
+  }
+  char temp=data[top];
+  top--;
+  return temp;
+}
+
+void Stack::getString() 
+{
+  cout<<"Enter a String : ";
+  cin.getline(str,MAX);
+
+  length=strlen(str);
+}
+
+void Stack::convertString() 
+{
+  char temp[MAX];
+  for(int i=0; i<length; i++) 
+  {
+    temp[i]=str[i];
+  }
+  int c=0;
+  for(int i=0; i<length; i++ )  
+  {
+    if(isalpha(temp[i]))  
+	{
+      str[c]=toupper(temp[i]);
+      c++;
+    }
+  }
+  length=c;
+}
+
+void Stack::checkPalindrome() 
+{
+  for(int i=0; i<length; i++)
+    push(str[i]);
+
+  for(int i=0; i<length; i++) 
+  {
+    if(str[i]==pop())
+      count++;
+  }
+  cout<<endl;
+  if(count==length) 
+    cout<<"\nEntered string is a Palindrome. \n";
+  else  
+  	cout<<"\nEntered string is not a Palindrome. \n";
+}
+
+void Stack::ReverseString()  
+{
+  for(int i=length-1; i>=0; i--)
+    cout<<str[i];
+}
+
+int main()  
+{
+  Stack obj;
+  obj.getString();
+  obj.convertString();
+  cout<<"\n* String converted to Upper case and concatenated into a word.\n";
+  cout<<"\nReverse of the string : ";
+  obj.ReverseString();
+  obj.checkPalindrome();
+
+  return 0;
+}
+
+
+
+
+//Output:
+
+/*Enter a String : Poor DAN is in A DrooP
+
+* String converted to Upper case and concatenated into a word.
+
+Reverse of the string : POORDANISINADROOP
+
+Entered string is a Palindrome.*/
